@@ -30,9 +30,7 @@ public class User {
         this._id = id;
     }
 
-    public int getID() {
-        return this._id;
-    }
+    public int getID() {return this._id; }
 
     public void setUsername(String username) {
         this._username = username;

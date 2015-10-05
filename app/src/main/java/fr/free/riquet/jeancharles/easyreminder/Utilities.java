@@ -3,15 +3,14 @@ package fr.free.riquet.jeancharles.easyreminder;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 /**
  * Created by Jean-Charles on 21/09/2015.
  */
 public class Utilities {
-    public static String userName_path = "fr.free.riquet.jeancharles.easyreminder.username";
-    public static String password_path = "fr.free.riquet.jeancharles.easyreminder.password";
-    public static String userdetails = "fr.free.riquet.jeancharles.easyreminder.userdetails";
-
     public static String md5(String string) {
         byte[] hash;
 
@@ -32,5 +31,13 @@ public class Utilities {
         }
 
         return hex.toString();
+    }
+
+
+    public static String getDateTime() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat(
+                "yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+        Date date = new Date();
+        return dateFormat.format(date);
     }
 }

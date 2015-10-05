@@ -7,9 +7,11 @@ import android.content.SharedPreferences;
  * Created by Jean-Charles on 23/09/2015.
  */
 public class MainUserSingleton {
-    public static String userName_path = "fr.free.riquet.jeancharles.easyreminder.username";
-    public static String password_path = "fr.free.riquet.jeancharles.easyreminder.password";
-    public static String userdetails = "fr.free.riquet.jeancharles.easyreminder.userdetails";
+    public static String userName = "username";
+    public static String password = "password";
+    public static String app_settings = "fr.free.riquet.jeancharles.easyreminder";
+    private static SharedPreferences settings;
+    private static SharedPreferences.Editor SPEditor;
     private static MainUserSingleton ourInstance = new MainUserSingleton();
     private static User userRegistered = new User();
 
@@ -22,7 +24,7 @@ public class MainUserSingleton {
 
     public void setUser(User user, Context context){
         userRegistered = user;
-        saveUserDetails(user.getUsername().toString(), user.getPassword().toString(), context);
+        saveUserDetails(user.getUsername(), user.getPassword(), context);
     }
 
     public User getUser(Context context){
@@ -33,37 +35,44 @@ public class MainUserSingleton {
     }
 
     public void disconnect(Context context){
-        SharedPreferences settings = context.getSharedPreferences(userdetails, 0);
-        SharedPreferences.Editor editor = settings.edit();
-        editor.putString(null, userName_path);
-        editor.putString(null, password_path);
-        editor.commit();
+        SPEditor.putString(userName, null);
+        SPEditor.putString(password, null);
+        SPEditor.commit();
     }
 
 
-    private static void saveUserDetails(String userName, String password, Context context) {
-        SharedPreferences settings = context.getSharedPreferences(userdetails, 0);
-        SharedPreferences.Editor editor = settings.edit();
-        editor.putString(userName, userName_path);
-        editor.putString(password, password_path);
-        editor.commit();
+    private static void saveUserDetails(String name, String pass, Context context) {
+        settings = context.getSharedPreferences(app_settings, Context.MODE_PRIVATE);
+        SharedPreferences.Editor SPEditor = settings.edit();
+        SPEditor.putString(userName, name);
+        SPEditor.putString(password, pass);
+        SPEditor.commit();
     }
 
     private static boolean getUserDetails(Context context){
-        SharedPreferences settings = context.getSharedPreferences(userdetails, 0);
-        String userName = settings.getString(userName_path, null);
-        String password = settings.getString(password_path, null);
-        if (userName != null && password != null) {
+        settings = context.getSharedPreferences(app_settings, Context.MODE_PRIVATE);
+        String name = settings.getString(userName, null);
+        String pass = settings.getString(password, null);
+        if (name != null && pass != null) {
             MyDBHandler dbHandler = new MyDBHandler(context, null, null, 1);
-            User user = dbHandler.findUser(userName, password);
+            User user = dbHandler.findUser(name, pass);
             if (user != null){
-                userRegistered.setUsername(userName.toString());
-                userRegistered.setPassword(password.toString());
+                userRegistered.setUsername(name);
+                userRegistered.setPassword(pass);
                 return true;
             }
             else
                 return false;
         }
         return false;
+    }
+
+    public SharedPreferences getSharedPreference(){
+        return settings;
+    }
+
+    public void setSharedPreferences(Context context){
+        settings = context.getSharedPreferences(app_settings, Context.MODE_PRIVATE);
+        SPEditor = settings.edit();
     }
 }

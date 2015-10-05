@@ -22,7 +22,7 @@ import java.util.Date;
 public class Settings extends AppCompatActivity {
     static final int REQUEST_TAKE_PHOTO = 1 ;
     static final int REQUEST_IMAGE_CAPTURE = 1;
-        static final String photodetails = "fr.free.riquet.jeancharles.easyreminder.userdetails";
+        static final String photodetails = "fr.free.riquet.jeancharles.easyreminder.app_settings";
     String mCurrentPhotoPath;
 
     @Override

@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="fr.free.riquet.jeancharles.easyreminder" >
-    <uses-feature android:name="android.hardware.camera"
-        android:required="true" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" android:maxSdkVersion="18" />
+    package="fr.free.riquet.jeancharles.easyreminder" android:minSdkVersion="16">
+    <uses-feature android:name="android.hardware.camera" android:required="true" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" android:maxSdkVersion="18"/>
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -27,20 +26,12 @@
                 android:value="fr.free.riquet.jeancharles.easyreminder.MainActivity" />
         </activity>
         <activity
-            android:name="fr.free.riquet.jeancharles.easyreminder.Login"
-            android:label="@string/title_activity_login"
-            android:parentActivityName="fr.free.riquet.jeancharles.easyreminder.MainActivity" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="fr.free.riquet.jeancharles.easyreminder.MainActivity" />
-        </activity>
-        <activity
             android:name="fr.free.riquet.jeancharles.easyreminder.LoginResult"
             android:label="@string/title_activity_login"
             android:parentActivityName="fr.free.riquet.jeancharles.easyreminder.MainActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="fr.free.riquet.jeancharles.easyreminder.Login" />
+                android:value="fr.free.riquet.jeancharles.easyreminder.MainActivity" />
         </activity>
         <activity
             android:name="fr.free.riquet.jeancharles.easyreminder.Settings"
