@@ -8,7 +8,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
-public class LoginResult extends AppCompatActivity {
+public class TasksList extends AppCompatActivity {
     final String EXTRA_LOGIN = "user_login";
     final String EXTRA_PASSWORD = "user_password";
     @Override

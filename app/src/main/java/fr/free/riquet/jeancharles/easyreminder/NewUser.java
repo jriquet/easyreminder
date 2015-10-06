@@ -1,8 +1,8 @@
 package fr.free.riquet.jeancharles.easyreminder;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -32,7 +32,7 @@ public class NewUser extends AppCompatActivity {
                 if (pass.getText().toString().equals(rePass.getText().toString())) {
                     TextView textView = (TextView) findViewById(R.id.textView_checkPassword);
                     textView.setText("");
-                    Intent intent = new Intent(NewUser.this, LoginResult.class);
+                    Intent intent = new Intent(NewUser.this, TasksList.class);
                     intent.putExtra(EXTRA_LOGIN, login.getText().toString());
                     intent.putExtra(EXTRA_PASSWORD, Utilities.md5(pass.getText().toString()));
                     intent.putExtra("calling-activity", ActivityConstants.NewUser);

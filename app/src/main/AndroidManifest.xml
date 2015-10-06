@@ -26,7 +26,7 @@
                 android:value="fr.free.riquet.jeancharles.easyreminder.MainActivity" />
         </activity>
         <activity
-            android:name="fr.free.riquet.jeancharles.easyreminder.LoginResult"
+            android:name=".TasksList"
             android:label="@string/title_activity_login"
             android:parentActivityName="fr.free.riquet.jeancharles.easyreminder.MainActivity" >
             <meta-data
@@ -36,10 +36,10 @@
         <activity
             android:name="fr.free.riquet.jeancharles.easyreminder.Settings"
             android:label="@string/title_activity_settings"
-            android:parentActivityName="fr.free.riquet.jeancharles.easyreminder.LoginResult" >
+            android:parentActivityName=".TasksList">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="fr.free.riquet.jeancharles.easyreminder.LoginResult" />
+                android:value=".TasksList" />
         </activity>
     </application>
 

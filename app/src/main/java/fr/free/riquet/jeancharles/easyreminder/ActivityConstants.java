@@ -5,5 +5,4 @@ public interface ActivityConstants {
     int Login = 1002;
     int LoginResult = 1003;
     int NewUser = 1004;
-    int NewUserCreated = 1005;
 }

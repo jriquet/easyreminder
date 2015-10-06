@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
         User user = MainUserSingleton.getInstance().getUser(getApplicationContext());
 
         if (user != null){
-            Intent intent = new Intent(MainActivity.this, LoginResult.class);
+            Intent intent = new Intent(MainActivity.this, TasksList.class);
             intent.putExtra(EXTRA_LOGIN, user.getUsername());
             intent.putExtra(EXTRA_PASSWORD, user.getPassword());
             intent.putExtra("calling-activity", ActivityConstants.MainActivity);
@@ -93,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
             String message = getString(R.string.user) + " " + userName + " " + getString(R.string.doentExist);
             messageWrongLogin.setText(message);
         } else {
-            Intent intent = new Intent(MainActivity.this, LoginResult.class);
+            Intent intent = new Intent(MainActivity.this, TasksList.class);
             intent.putExtra(EXTRA_LOGIN, userName);
             intent.putExtra(EXTRA_PASSWORD, password);
             intent.putExtra("calling-activity", ActivityConstants.Login);
