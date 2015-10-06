@@ -1,8 +1,5 @@
 package fr.free.riquet.jeancharles.easyreminder;
 
-/**
- * Created by Jean-Charles on 14/09/2015.
- */
 public class User {
     private int _id;
     private String _username;
@@ -12,7 +9,8 @@ public class User {
     private String _emailaddress;
 
     public User() {
-
+        this._username = " ";
+        this._password = " ";
     }
 
     public User(int id, String username, String password) {
@@ -26,26 +24,32 @@ public class User {
         this._password = password;
     }
 
-    public void setID(int id) {
-        this._id = id;
+    public boolean isEmpty() {
+        return _username.isEmpty() || _password.isEmpty();
     }
 
-    public int getID() {return this._id; }
+    public int getID() {
+        return this._id;
+    }
 
-    public void setUsername(String username) {
-        this._username = username;
+    public void setID(int id) {
+        this._id = id;
     }
 
     public String getUsername() {
         return this._username;
     }
 
-    public void setPassword(String password) {
-        this._password = password;
+    public void setUsername(String username) {
+        this._username = username;
     }
 
     public String getPassword() {
         return this._password;
+    }
+
+    public void setPassword(String password) {
+        this._password = password;
     }
 
     public void setFirstname(String firstname) {
@@ -54,19 +58,19 @@ public class User {
 
     public String get_firstname() { return this._firstname; }
 
-    public void setLastname(String lastname) {
-        this._lastname = lastname;
-    }
-
     public String getLastname() {
         return this._lastname;
     }
 
-    public void setEmailAddress(String emailAddress) {
-        this._emailaddress = emailAddress;
+    public void setLastname(String lastname) {
+        this._lastname = lastname;
     }
 
     public String getEmailAddress() {
         return this._emailaddress;
+    }
+
+    public void setEmailAddress(String emailAddress) {
+        this._emailaddress = emailAddress;
     }
 }

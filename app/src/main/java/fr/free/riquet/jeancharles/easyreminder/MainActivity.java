@@ -1,9 +1,8 @@
 package fr.free.riquet.jeancharles.easyreminder;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -14,7 +13,6 @@ import android.widget.TextView;
 public class MainActivity extends AppCompatActivity {
     final String EXTRA_LOGIN = "user_login";
     final String EXTRA_PASSWORD = "user_password";
-    public static String app_settings = "fr.free.riquet.jeancharles.easyreminder";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
             singleton.setSharedPreferences(getApplicationContext());
         }
         User user = MainUserSingleton.getInstance().getUser(getApplicationContext());
+
         if (user != null){
             Intent intent = new Intent(MainActivity.this, LoginResult.class);
             intent.putExtra(EXTRA_LOGIN, user.getUsername());
@@ -87,13 +86,13 @@ public class MainActivity extends AppCompatActivity {
         User userLogin = dbHandler.findUser(userName, password);
         if ((userLogin == null) & (dbHandler.checkUser(userName)))
         {
-            messageWrongLogin.setText("Wrong password for user : "+userName);
-        }
-        else if (dbHandler.checkUser(userName) == false)
+            String message = getString(R.string.wrongPassword) + " " + userName;
+            messageWrongLogin.setText(message);
+        } else if (!dbHandler.checkUser(userName))
         {
-            messageWrongLogin.setText("user "+userName+"does not exist");
-        }
-        else {
+            String message = getString(R.string.user) + " " + userName + " " + getString(R.string.doentExist);
+            messageWrongLogin.setText(message);
+        } else {
             Intent intent = new Intent(MainActivity.this, LoginResult.class);
             intent.putExtra(EXTRA_LOGIN, userName);
             intent.putExtra(EXTRA_PASSWORD, password);
