@@ -1,162 +1,171 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context="fr.free.riquet.jeancharles.easyreminder.Settings">
 
     <TextView
+        android:id="@+id/textViewUsername"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@string/login_user"
-        android:id="@+id/textViewUsername"
-        android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:text="@string/login_user"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <TextView
+        android:id="@+id/textViewPassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@string/login_password"
-        android:id="@+id/textViewPassword"
+        android:layout_above="@+id/textView8"
         android:layout_alignLeft="@+id/textView8"
         android:layout_alignStart="@+id/textView8"
-        android:layout_above="@+id/textView8"
-        android:layout_alignTop="@+id/editTextPassword" />
+        android:layout_alignTop="@+id/editTextPassword"
+        android:text="@string/login_password"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <TextView
+        android:id="@+id/textView8"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@string/newUser_repassword"
-        android:id="@+id/textView8"
         android:layout_above="@+id/editTextFirstname"
         android:layout_alignLeft="@+id/textView9"
-        android:layout_alignStart="@+id/textView9" />
+        android:layout_alignStart="@+id/textView9"
+        android:text="@string/newUser_repassword"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <TextView
+        android:id="@+id/textView9"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@string/Firstname"
-        android:id="@+id/textView9"
         android:layout_alignBottom="@+id/editTextFirstname"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:text="@string/Firstname"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <TextView
+        android:id="@+id/textView10"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@string/Lastname"
-        android:id="@+id/textView10"
         android:layout_alignBottom="@+id/editTextLastname"
         android:layout_alignLeft="@+id/textView9"
-        android:layout_alignStart="@+id/textView9" />
+        android:layout_alignStart="@+id/textView9"
+        android:text="@string/Lastname"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="textPassword"
-        android:ems="10"
         android:id="@+id/editTextPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_above="@+id/editTextRetapePassword"
+        android:layout_toEndOf="@+id/textView11"
         android:layout_toRightOf="@+id/textView11"
-        android:layout_toEndOf="@+id/textView11" />
+        android:ems="10"
+        android:inputType="textPassword" />
 
     <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="textPassword"
-        android:ems="10"
         android:id="@+id/editTextRetapePassword"
-        android:layout_above="@+id/editTextFirstname"
-        android:layout_toRightOf="@+id/textView8"
-        android:layout_toEndOf="@+id/textView8" />
-
-    <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:inputType="textPersonName"
+        android:layout_above="@+id/editTextFirstname"
+        android:layout_toEndOf="@+id/textView8"
+        android:layout_toRightOf="@+id/textView8"
         android:ems="10"
+        android:inputType="textPassword" />
+
+    <EditText
         android:id="@+id/editText3"
-        android:editable="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/textViewUsername"
         android:layout_toLeftOf="@+id/editTextFirstname"
-        android:layout_toStartOf="@+id/editTextFirstname" />
+        android:layout_toStartOf="@+id/editTextFirstname"
+        android:editable="true"
+        android:ems="10"
+        android:inputType="textPersonName" />
 
     <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:ems="10"
         android:id="@+id/editTextFirstname"
-        android:layout_above="@+id/editTextLastname"
-        android:layout_alignRight="@+id/editTextRetapePassword"
-        android:layout_alignEnd="@+id/editTextRetapePassword" />
-
-    <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:inputType="textPersonName"
+        android:layout_above="@+id/editTextLastname"
+        android:layout_alignEnd="@+id/editTextRetapePassword"
+        android:layout_alignRight="@+id/editTextRetapePassword"
         android:ems="10"
+        android:inputType="textPersonName" />
+
+    <EditText
         android:id="@+id/editTextLastname"
-        android:layout_alignParentBottom="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/editTextFirstname"
+        android:layout_alignParentBottom="true"
         android:layout_alignStart="@+id/editTextFirstname"
-        android:layout_marginBottom="81dp" />
+        android:layout_marginBottom="81dp"
+        android:ems="10"
+        android:inputType="textPersonName" />
 
     <ImageView
+        android:id="@+id/mImageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/mImageView"
+        android:layout_alignEnd="@+id/editTextPassword"
         android:layout_alignParentTop="true"
         android:layout_alignRight="@+id/editTextPassword"
-        android:layout_alignEnd="@+id/editTextPassword"
         android:minHeight="@android:dimen/thumbnail_width"
         android:minWidth="@android:dimen/thumbnail_height"
         android:nestedScrollingEnabled="false" />
 
     <Button
+        android:id="@+id/buttonNewProfilePicture"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="New Profile Picture ?"
-        android:id="@+id/buttonNewProfilePicture"
         android:layout_alignBottom="@+id/mImageView"
-        android:layout_alignRight="@+id/editText3"
         android:layout_alignEnd="@+id/editText3"
-        android:layout_marginBottom="36dp" />
+        android:layout_alignRight="@+id/editText3"
+        android:layout_marginBottom="36dp"
+        android:text="New Profile Picture ?" />
 
     <TextView
+        android:id="@+id/textView11"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@string/Email_address"
-        android:id="@+id/textView11"
-        android:layout_below="@+id/textView10"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/textView10"
+        android:text="@string/Email_address"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <EditText
+        android:id="@+id/editTextEmail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/editTextEmail"
         android:layout_alignBottom="@+id/textView11"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
         android:layout_alignLeft="@+id/mImageView"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
         android:layout_alignStart="@+id/mImageView" />
 
     <Button
+        android:id="@+id/buttonSaveSettings"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/ButtonSaveSettings"
-        android:id="@+id/buttonSaveSettings"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:text="@string/ButtonSaveSettings" />
+
+    <TextView
+        android:id="@+id/textView_checkPasswordSettings"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/textViewPassword"
+        android:layout_centerHorizontal="true"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 </RelativeLayout>

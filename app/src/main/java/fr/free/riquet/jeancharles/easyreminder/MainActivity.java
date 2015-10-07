@@ -52,6 +52,19 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();  // Always call the superclass method first
+
+        // Activity being restarted from stopped state
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
@@ -82,13 +95,12 @@ public class MainActivity extends AppCompatActivity {
         TextView messageWrongLogin = (TextView) findViewById(R.id.textViewWrongLogin);
         String userName = login.getText().toString();
         String password = Utilities.md5(pass.getText().toString());
-        MyDBHandler dbHandler = new MyDBHandler(getBaseContext(), null, null, 1);
-        User userLogin = dbHandler.findUser(userName, password);
-        if ((userLogin == null) & (dbHandler.checkUser(userName)))
+        User userLogin = DBHandlerSingleton.getInstance(getApplicationContext()).findUser(userName, password);
+        if ((userLogin == null) & (DBHandlerSingleton.getInstance(getApplicationContext()).checkUser(userName)))
         {
             String message = getString(R.string.wrongPassword) + " " + userName;
             messageWrongLogin.setText(message);
-        } else if (!dbHandler.checkUser(userName))
+        } else if (!DBHandlerSingleton.getInstance(getApplicationContext()).checkUser(userName))
         {
             String message = getString(R.string.user) + " " + userName + " " + getString(R.string.doentExist);
             messageWrongLogin.setText(message);

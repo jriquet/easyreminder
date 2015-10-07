@@ -4,15 +4,16 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import java.io.File;
 import java.io.IOException;
@@ -29,6 +30,13 @@ public class Settings extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
+        EditText editTextFirstname = (EditText) findViewById(R.id.editTextFirstname);
+        EditText editTextLastname = (EditText) findViewById(R.id.editTextLastname);
+        EditText editTextEmail = (EditText) findViewById(R.id.editTextEmail);
+
+        editTextFirstname.setText(MainUserSingleton.getInstance().getUser(getApplicationContext()).get_firstname());
+        editTextLastname.setText(MainUserSingleton.getInstance().getUser(getApplicationContext()).getLastname());
+        editTextEmail.setText(MainUserSingleton.getInstance().getUser(getApplicationContext()).getEmailAddress());
 
         Button buttonNewProfilePicture = (Button) findViewById(R.id.buttonNewProfilePicture);
         buttonNewProfilePicture.setOnClickListener(new View.OnClickListener() {
@@ -38,13 +46,26 @@ public class Settings extends AppCompatActivity {
             }
         });
 
-        Button createSaveSettingsButton = (Button) findViewById(R.id.buttonNewProfilePicture);
+        Button createSaveSettingsButton = (Button) findViewById(R.id.buttonSaveSettings);
         createSaveSettingsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 saveSettings();
             }
         });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();  // Always call the superclass method first
+
+        // Activity being restarted from stopped state
     }
 
     @Override
@@ -62,7 +83,11 @@ public class Settings extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_modify) {
+            return true;
+        } else if (id == R.id.action_delete) {
+            return true;
+        } else if (id == R.id.action_cancel) {
             return true;
         }
 
@@ -83,13 +108,38 @@ public class Settings extends AppCompatActivity {
     }
 
     private void saveSettings() {
-        EditText firstname = (EditText) findViewById(R.id.editTextFirstname);
-        EditText lastname = (EditText) findViewById(R.id.editTextLastname);
-        EditText email = (EditText) findViewById(R.id.editTextEmail);
-        if (firstname.getText().toString() != null)
-        {
+        EditText pass = (EditText) findViewById(R.id.editTextPassword);
+        EditText rePass = (EditText) findViewById(R.id.editTextRetapePassword);
+        EditText editTextFirstname = (EditText) findViewById(R.id.editTextFirstname);
+        EditText editTextLastname = (EditText) findViewById(R.id.editTextLastname);
+        EditText editTextEmail = (EditText) findViewById(R.id.editTextEmail);
+        TextView textView = (TextView) findViewById(R.id.textView_checkPasswordSettings);
+        String firstname = editTextFirstname.getText().toString();
+        String lastname = editTextLastname.getText().toString();
+        String email = editTextEmail.getText().toString();
+        String password = MainUserSingleton.getInstance().getUser(getApplicationContext()).getPassword();
+        String newpass = pass.getText().toString();
+        String ReNewPass = rePass.getText().toString();
 
+        if (newpass.contentEquals(ReNewPass) && newpass.length() >= 1) {
+            textView.setText("");
+            password = Utilities.md5(newpass);
+        } else if (newpass.contentEquals(ReNewPass) && newpass.length() == 0) {
+            textView.setText("");
+        } else {
+
+            String message = getString(R.string.retapePassword);
+            textView.setText(message);
+            return;
         }
+
+        MainUserSingleton.getInstance().getUser(getApplicationContext()).setPassword(password);
+        MainUserSingleton.getInstance().getUser(getApplicationContext()).setFirstname(firstname);
+        MainUserSingleton.getInstance().getUser(getApplicationContext()).setLastname(lastname);
+        MainUserSingleton.getInstance().getUser(getApplicationContext()).setEmailAddress(email);
+        DBHandlerSingleton.getInstance(getApplicationContext()).saveSettings(MainUserSingleton.getInstance().getUser(getApplicationContext()).getID(), firstname, lastname, email, password);
+        Intent intent = new Intent(this, TasksList.class);
+        startActivity(intent);
     }
 
     private void dispatchTakePictureIntent_small() {
@@ -164,7 +214,6 @@ public class Settings extends AppCompatActivity {
         // Decode the image file into a Bitmap sized to fill the View
         bmOptions.inJustDecodeBounds = false;
         bmOptions.inSampleSize = scaleFactor;
-        bmOptions.inPurgeable = true;
 
         //Bitmap bitmap = BitmapFactory.decodeFile(mCurrentPhotoPath, bmOptions);
         Bitmap bitmap = BitmapFactory.decodeFile(mCurrentPhotoPath);

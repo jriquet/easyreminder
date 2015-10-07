@@ -1,7 +1,7 @@
 package fr.free.riquet.jeancharles.easyreminder;
 
 public class User {
-    private int _id;
+    private long _id;
     private String _username;
     private String _password;
     private String _firstname;
@@ -9,30 +9,32 @@ public class User {
     private String _emailaddress;
 
     public User() {
+        this._id = 0;
         this._username = " ";
         this._password = " ";
-    }
-
-    public User(int id, String username, String password) {
-        this._id = id;
-        this._username = username;
-        this._password = password;
+        this._firstname = " ";
+        this._lastname = " ";
+        this._emailaddress = " ";
     }
 
     public User(String username, String password) {
+        this._id = 0;
         this._username = username;
         this._password = password;
+        this._firstname = " ";
+        this._lastname = " ";
+        this._emailaddress = " ";
     }
 
     public boolean isEmpty() {
         return _username.isEmpty() || _password.isEmpty();
     }
 
-    public int getID() {
+    public long getID() {
         return this._id;
     }
 
-    public void setID(int id) {
+    public void setID(long id) {
         this._id = id;
     }
 

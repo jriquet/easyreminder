@@ -33,5 +33,12 @@
     <string name="wrongPassword">Wrong password for user : </string>
     <string name="user">User </string>
     <string name="doentExist">does not exist</string>
+    <string name="retapePassword">Please retape your password</string>
+    <string name="textTask">Description of the task</string>
+    <string name="dateTask">yyyy-MM-dd HH:mm</string>
+    <string name="title_activity_task_detail">TaskDetail</string>
+    <string name="action_modify">Modify</string>
+    <string name="action_delete">Delete</string>
+    <string name="action_cancel">Cancel</string>
 
 </resources>

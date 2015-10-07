@@ -32,11 +32,11 @@ public class MainUserSingleton {
         String name = settings.getString(path_userName, null);
         String pass = settings.getString(path_password, null);
         if (name != null && pass != null) {
-            MyDBHandler dbHandler = new MyDBHandler(context, null, null, 1);
-            User user = dbHandler.findUser(name, pass);
+            User user = DBHandlerSingleton.getInstance(context).findUser(name, pass);
             if (user != null) {
                 userRegistered.setUsername(name);
                 userRegistered.setPassword(pass);
+                userRegistered.setID(user.getID());
                 return true;
             } else
                 return false;

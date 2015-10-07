@@ -3,13 +3,12 @@ package fr.free.riquet.jeancharles.easyreminder;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-/**
- * Created by Jean-Charles on 21/09/2015.
- */
 public class Utilities {
     public static String md5(String string) {
         byte[] hash;
@@ -36,8 +35,27 @@ public class Utilities {
 
     public static String getDateTime() {
         SimpleDateFormat dateFormat = new SimpleDateFormat(
-                "yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+                "yyyy-MM-dd HH:mm", Locale.getDefault());
         Date date = new Date();
         return dateFormat.format(date);
+    }
+
+    public static String getTime() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat(
+                "HH:mm", Locale.getDefault());
+        Date date = new Date();
+        return dateFormat.format(date);
+    }
+
+    public static String getDateDetail(String dateFormat, String date) {
+        DateFormat df = new SimpleDateFormat("MM/dd/yyyy hh:mm");
+        String newDate = "";
+        try {
+            Date dt = df.parse(date);
+            newDate = dt.toString();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return newDate;
     }
 }

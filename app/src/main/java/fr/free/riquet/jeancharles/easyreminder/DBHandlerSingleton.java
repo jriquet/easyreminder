@@ -1,20 +1,16 @@
 package fr.free.riquet.jeancharles.easyreminder;
 
+import android.content.ContentValues;
+import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.content.Context;
-import android.content.ContentValues;
-import android.database.Cursor;
 
-/**
- * Created by Jean-Charles on 14/09/2015.
- */
-public class MyDBHandler extends SQLiteOpenHelper {
-    private static final int DATABASE_VERSION = 1;
-    private static final String DATABASE_NAME = "easyReminderDB.db";
+import java.util.ArrayList;
+import java.util.List;
 
-    private static final String TABLE_USER = "users";
-    private static final String TABLE_TASK = "task";
+
+public class DBHandlerSingleton extends SQLiteOpenHelper {
 
     public static final String COLUMN_USER_ID = "_id";
     public static final String COLUMN_USER_USERNAME = "username";
@@ -22,7 +18,10 @@ public class MyDBHandler extends SQLiteOpenHelper {
     public static final String COLUMN_USER_FIRSTNAME = "firstname";
     public static final String COLUMN_USER_LASTNAME = "lastname";
     public static final String COLUMN_USER_EMAIL = "email";
-
+    private static final int DATABASE_VERSION = 1;
+    private static final String DATABASE_NAME = "easyReminderDB.db";
+    private static final String TABLE_USER = "users";
+    private static final String TABLE_TASK = "task";
     // Post Table Columns
     private static final String COLUMN_TASK_ID = "id";
     private static final String COLUMN_TASK_USER_ID_FK = "userId";
@@ -30,10 +29,19 @@ public class MyDBHandler extends SQLiteOpenHelper {
     private static final String COLUMN_TASK_DESC = "desc";
     private static final String COLUMN_TASK_CREATED_AT = "createdAt";
     private static final String COLUMN_TASK_UNTIL_DATE = "untilDate";
+    private static DBHandlerSingleton _instance = null;
+    private Context _context;
 
-    public MyDBHandler(Context context, String name,
-                       SQLiteDatabase.CursorFactory factory, int version) {
-        super(context, DATABASE_NAME, factory, DATABASE_VERSION);
+    private DBHandlerSingleton(Context context) {
+        super(context, DATABASE_NAME, null, DATABASE_VERSION);
+        this._context = context;
+    }
+
+    public static DBHandlerSingleton getInstance(Context ctx) {
+        if (_instance == null) {
+            _instance = new DBHandlerSingleton(ctx.getApplicationContext());
+        }
+        return _instance;
     }
 
     // Called when the database connection is being configured.
@@ -92,10 +100,13 @@ public class MyDBHandler extends SQLiteOpenHelper {
 
         User user = new User();
 
-        if (cursor.moveToFirst())
+        if (cursor.moveToFirst()) {
+            db.close();
             return true;
-        else
+        } else {
+            db.close();
             return false;
+        }
     }
 
     public User findUser(String username, String password) {
@@ -112,6 +123,9 @@ public class MyDBHandler extends SQLiteOpenHelper {
             user.setID(Integer.parseInt(cursor.getString(0)));
             user.setUsername(cursor.getString(1));
             user.setPassword(cursor.getString(2));
+            user.setFirstname(cursor.getString(3));
+            user.setLastname(cursor.getString(4));
+            user.setEmailAddress(cursor.getString(5));
             cursor.close();
         } else {
             user = null;
@@ -139,28 +153,112 @@ public class MyDBHandler extends SQLiteOpenHelper {
         return result;
     }
 
-
-    public void saveSettings(String username, String firstname, String lastname, String email) {
-        String query = "Update " + TABLE_USER + " SET " + COLUMN_USER_FIRSTNAME + " = \"" + firstname +"\", " + COLUMN_USER_LASTNAME + " = \"" + lastname + "\", " + COLUMN_USER_EMAIL + " = " + "\"" + email + "\" WHERE " + COLUMN_USER_USERNAME + " =  \"" + username + "\"";
+    public void saveSettings(long id, String firstname, String lastname, String email, String password) {
+        String query = "Update " + TABLE_USER + " SET " + COLUMN_USER_FIRSTNAME + " = \"" + firstname + "\", " +
+                COLUMN_USER_LASTNAME + " = \"" + lastname + "\", " +
+                COLUMN_USER_PASSWORD + " = \"" + password + "\", " +
+                COLUMN_USER_EMAIL + " = " + "\"" + email + "\" WHERE " +
+                COLUMN_USER_ID + " =  \"" + id + "\"";
 
         SQLiteDatabase db = this.getWritableDatabase();
 
-        db.rawQuery(query, null);
+        Cursor cursor = db.rawQuery(query, null);
+        cursor.moveToFirst();
+        cursor.close();
         db.close();
     }
 
+    public void modifyPassword(long id, String password) {
+        String query = "Update " + TABLE_USER + " SET " + COLUMN_USER_PASSWORD + " = \"" + password + "\", WHERE " +
+                COLUMN_USER_ID + " =  \"" + id + "\"";
 
-    public void addTask(String name, String desc, String untilDate) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        Cursor cursor = db.rawQuery(query, null);
+        cursor.moveToFirst();
+        cursor.close();
+        db.close();
+    }
+
+    public long addTask(Task taskToAdd) {
         ContentValues values = new ContentValues();
-        values.put(COLUMN_TASK_NAME, name);
-        values.put(COLUMN_TASK_DESC, desc);
-        values.put(COLUMN_TASK_UNTIL_DATE, untilDate);
+        values.put(COLUMN_TASK_NAME, taskToAdd.get_name());
+        values.put(COLUMN_TASK_DESC, taskToAdd.get_desc());
+        values.put(COLUMN_TASK_USER_ID_FK, taskToAdd.get_user_id());
+        values.put(COLUMN_TASK_UNTIL_DATE, taskToAdd.get_limiteDate());
         values.put(COLUMN_TASK_CREATED_AT, Utilities.getDateTime());
 
         SQLiteDatabase db = this.getWritableDatabase();
 
-        db.insert(TABLE_TASK, null, values);
+        long id = db.insert(TABLE_TASK, null, values);
+        db.close();
+
+        return id;
+    }
+
+    public List getTasksList(User user) {
+        List<Task> tasksList = new ArrayList<Task>();
+        String query = "Select * FROM " + TABLE_TASK + " WHERE " + COLUMN_TASK_USER_ID_FK + " =  \"" + user.getID() + "\"";
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(query, null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                Task task = new Task();
+                task.set_id(Integer.parseInt(cursor.getString(0)));
+                task.set_user_id(Integer.parseInt(cursor.getString(1)));
+                task.set_name(cursor.getString(2));
+                task.set_desc(cursor.getString(3));
+                task.set_createdAt(cursor.getString(4));
+                task.set_limiteDate(cursor.getString(5));
+                // Adding task to list
+                tasksList.add(task);
+            } while (cursor.moveToNext());
+            db.close();
+            return tasksList;
+        } else {
+            db.close();
+            return null;
+        }
+    }
+
+    public boolean deleteTask(long id) {
+        boolean result;
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        db.delete(TABLE_TASK, COLUMN_TASK_ID + " = ?",
+                new String[]{String.valueOf(id)});
+        result = true;
+        db.close();
+
+        return result;
+    }
+
+    public void updateTask(long id, String name, String desc, String limiteDate) {
+        String query = "Update " + TABLE_TASK + " SET " + COLUMN_TASK_NAME + " = \"" + name + "\", " +
+                COLUMN_TASK_DESC + " = \"" + desc + "\", " +
+                COLUMN_TASK_UNTIL_DATE + " = " + "\"" + limiteDate + "\" WHERE " +
+                COLUMN_TASK_ID + " =  \"" + id + "\"";
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(query, null);
+        cursor.moveToFirst();
+        cursor.close();
         db.close();
     }
 
+    public void truncateTaskTable() {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        String query = "DELETE FROM " + TABLE_TASK;
+        Cursor cursor = db.rawQuery(query, null);
+        cursor.moveToFirst();
+
+        query = "VACUUM";
+        cursor = db.rawQuery(query, null);
+        cursor.moveToFirst();
+
+        cursor.close();
+        db.close();
+    }
 }

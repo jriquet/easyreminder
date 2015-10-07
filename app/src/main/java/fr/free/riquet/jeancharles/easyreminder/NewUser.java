@@ -39,7 +39,8 @@ public class NewUser extends AppCompatActivity {
                     startActivity(intent);
                 } else {
                     TextView textView = (TextView) findViewById(R.id.textView_checkPassword);
-                    textView.setText("Please retape your password");
+                    String message = getString(R.string.retapePassword);
+                    textView.setText(message);
                 }
             }
         });
