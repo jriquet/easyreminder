@@ -20,6 +20,8 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import uz.shift.colorpicker.LineColorPicker;
+
 public class Settings extends AppCompatActivity {
     static final int REQUEST_TAKE_PHOTO = 1 ;
     static final int REQUEST_IMAGE_CAPTURE = 1;
@@ -30,10 +32,12 @@ public class Settings extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
+        EditText editTextUsername = (EditText) findViewById(R.id.editTextSettingsUsername);
         EditText editTextFirstname = (EditText) findViewById(R.id.editTextFirstname);
         EditText editTextLastname = (EditText) findViewById(R.id.editTextLastname);
         EditText editTextEmail = (EditText) findViewById(R.id.editTextEmail);
 
+        editTextUsername.setText(MainUserSingleton.getInstance().getUser(getApplicationContext()).getUsername());
         editTextFirstname.setText(MainUserSingleton.getInstance().getUser(getApplicationContext()).get_firstname());
         editTextLastname.setText(MainUserSingleton.getInstance().getUser(getApplicationContext()).getLastname());
         editTextEmail.setText(MainUserSingleton.getInstance().getUser(getApplicationContext()).getEmailAddress());

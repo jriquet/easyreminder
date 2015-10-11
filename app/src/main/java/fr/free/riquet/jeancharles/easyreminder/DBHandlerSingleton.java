@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.os.Build;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +30,8 @@ public class DBHandlerSingleton extends SQLiteOpenHelper {
     private static final String COLUMN_TASK_DESC = "desc";
     private static final String COLUMN_TASK_CREATED_AT = "createdAt";
     private static final String COLUMN_TASK_UNTIL_DATE = "untilDate";
+    private static final String COLUMN_TASK_DONE = "done";
+    private static final String COLUMN_TASK_COLOR = "color";
     private static DBHandlerSingleton _instance = null;
     private Context _context;
 
@@ -49,7 +52,11 @@ public class DBHandlerSingleton extends SQLiteOpenHelper {
     @Override
     public void onConfigure(SQLiteDatabase db) {
         super.onConfigure(db);
-        db.setForeignKeyConstraintsEnabled(true);
+        int currentapiVersion = android.os.Build.VERSION.SDK_INT;
+        if (currentapiVersion >= Build.VERSION_CODES.JELLY_BEAN){
+            db.setForeignKeyConstraintsEnabled(true);
+        }
+
     }
 
     @Override
@@ -65,7 +72,8 @@ public class DBHandlerSingleton extends SQLiteOpenHelper {
                 COLUMN_TASK_ID + " INTEGER PRIMARY KEY," + // Define a primary key
                 COLUMN_TASK_USER_ID_FK + " INTEGER REFERENCES " + TABLE_USER + "," + // Define a foreign key
                 COLUMN_TASK_NAME + " TEXT," + COLUMN_TASK_DESC + " TEXT,"
-                + COLUMN_TASK_CREATED_AT + " DEFAULT CURRENT_TIMESTAMP," + COLUMN_TASK_UNTIL_DATE + " DEFAULT CURRENT_TIMESTAMP" +
+                + COLUMN_TASK_CREATED_AT + " DEFAULT CURRENT_TIMESTAMP," + COLUMN_TASK_UNTIL_DATE + " DEFAULT CURRENT_TIMESTAMP,"
+                + COLUMN_TASK_DONE + " INTEGER, " + COLUMN_TASK_COLOR + " INTEGER " +
                 ")";
 
         db.execSQL(CREATE_PRODUCTS_TABLE);
@@ -187,6 +195,8 @@ public class DBHandlerSingleton extends SQLiteOpenHelper {
         values.put(COLUMN_TASK_USER_ID_FK, taskToAdd.get_user_id());
         values.put(COLUMN_TASK_UNTIL_DATE, taskToAdd.get_limiteDate());
         values.put(COLUMN_TASK_CREATED_AT, Utilities.getDateTime());
+        values.put(COLUMN_TASK_DONE, 0);
+        values.put(COLUMN_TASK_COLOR, taskToAdd.get_color());
 
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -198,7 +208,8 @@ public class DBHandlerSingleton extends SQLiteOpenHelper {
 
     public List getTasksList(User user) {
         List<Task> tasksList = new ArrayList<Task>();
-        String query = "Select * FROM " + TABLE_TASK + " WHERE " + COLUMN_TASK_USER_ID_FK + " =  \"" + user.getID() + "\"";
+        String query = "Select * FROM " + TABLE_TASK + " WHERE " + COLUMN_TASK_USER_ID_FK + " =  \"" + user.getID() + "\"" +
+                "ORDER BY " + COLUMN_TASK_DONE + ", " + COLUMN_TASK_CREATED_AT;
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(query, null);
 
@@ -211,7 +222,16 @@ public class DBHandlerSingleton extends SQLiteOpenHelper {
                 task.set_desc(cursor.getString(3));
                 task.set_createdAt(cursor.getString(4));
                 task.set_limiteDate(cursor.getString(5));
-                // Adding task to list
+                int id = Integer.parseInt(cursor.getString(0));
+                String state = cursor.getString(6);
+                if (cursor.getString(6).equals("1")) {
+                    task.set_checked(true);
+                }
+                else {
+                    task.set_checked(false);
+                }
+                task.set_color(Integer.parseInt(cursor.getString(7)));
+
                 tasksList.add(task);
             } while (cursor.moveToNext());
             db.close();
@@ -238,6 +258,30 @@ public class DBHandlerSingleton extends SQLiteOpenHelper {
         String query = "Update " + TABLE_TASK + " SET " + COLUMN_TASK_NAME + " = \"" + name + "\", " +
                 COLUMN_TASK_DESC + " = \"" + desc + "\", " +
                 COLUMN_TASK_UNTIL_DATE + " = " + "\"" + limiteDate + "\" WHERE " +
+                COLUMN_TASK_ID + " =  \"" + id + "\"";
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(query, null);
+        cursor.moveToFirst();
+        cursor.close();
+        db.close();
+    }
+
+    public void setColorTask(long id, int color) {
+        String query = "Update " + TABLE_TASK + " SET " + COLUMN_TASK_COLOR + " = \"" + color + "\" " +
+                " WHERE " + COLUMN_TASK_ID + " =  \"" + id + "\"";
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(query, null);
+        cursor.moveToFirst();
+        cursor.close();
+        db.close();
+    }
+
+
+    public void setTaskDone(long id, boolean done) {
+        int flag = (done)? 1 : 0;
+        String query = "Update " + TABLE_TASK + " SET " + COLUMN_TASK_DONE + " = \"" + flag + "\" WHERE " +
                 COLUMN_TASK_ID + " =  \"" + id + "\"";
 
         SQLiteDatabase db = this.getWritableDatabase();

@@ -12,63 +12,88 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="fr.free.riquet.jeancharles.easyreminder.TaskDetail"
     tools:showIn="@layout/activity_task_detail">
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <EditText
+                android:id="@+id/editTextTaskName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/textView13"
+                android:layout_gravity="center_horizontal"
+                android:textSize="@dimen/abc_action_bar_content_inset_material"
+                android:hint="@string/TaskName"/>
+            <EditText
+                android:id="@+id/editTextTaskDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/textView14"
+                android:layout_gravity="center_horizontal"
+                android:textSize="@dimen/abc_action_bar_content_inset_material"
+                android:hint="@string/TaskDescription"/>
 
-    <TextView
-        android:id="@+id/textView13"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:text="@string/TaskName"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textSize="@dimen/abc_action_bar_content_inset_material" />
+            <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/task_done"
+                android:id="@+id/checkBoxTaskDetail"
+                android:textSize="@dimen/abc_action_bar_content_inset_material"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:checked="false" />
 
-    <EditText
-        android:id="@+id/editTextTaskName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/textView13"
-        android:layout_gravity="center_horizontal"
-        android:textSize="@dimen/abc_action_bar_content_inset_material" />
+            <TextView
+                android:id="@+id/textView16"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/checkBox"
+                android:text="@string/msg_select_color"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textSize="@dimen/abc_action_bar_content_inset_material" />
 
-    <TextView
-        android:id="@+id/textView14"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/editTextTaskName"
-        android:text="@string/TaskDescription"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textSize="@dimen/abc_action_bar_content_inset_material" />
+            <uz.shift.colorpicker.LineColorPicker
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/picker"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                app:orientation="horizontal"/>
 
-    <EditText
-        android:id="@+id/editTextTaskDescription"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/textView14"
-        android:layout_gravity="center_horizontal"
-        android:textSize="@dimen/abc_action_bar_content_inset_material" />
+            <TextView
+                android:id="@+id/textView15"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/editTextTaskDescription"
+                android:text="@string/untilDate"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textSize="@dimen/abc_action_bar_content_inset_material" />
 
-    <TextView
-        android:id="@+id/textView15"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/editTextTaskDescription"
-        android:text="@string/untilDate"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textSize="@dimen/abc_action_bar_content_inset_material" />
+            <DatePicker
+                android:id="@+id/datePickerTask"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:calendarViewShown="false"
+                android:scaleX="0.8"
+                android:scaleY="0.8"/>
 
-    <DatePicker
-        android:id="@+id/datePickerTask"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal" />
+            <TimePicker
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/timePickerTask"
+                android:layout_gravity="center_horizontal"
+                android:scaleX="0.8"
+                android:scaleY="0.8"/>
+        </LinearLayout>
+    </ScrollView>
 </LinearLayout>

@@ -2,6 +2,7 @@ package fr.free.riquet.jeancharles.easyreminder;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -18,6 +19,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        ActionBar ab =getSupportActionBar();
+        ab.setDisplayShowHomeEnabled(true);
+        ab.setIcon(R.mipmap.ic_launcher);
         MainUserSingleton singleton = MainUserSingleton.getInstance();
 
         if(singleton.getSharedPreference() == null){
@@ -30,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
             intent.putExtra(EXTRA_LOGIN, user.getUsername());
             intent.putExtra(EXTRA_PASSWORD, user.getPassword());
             intent.putExtra("calling-activity", ActivityConstants.MainActivity);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
         }
 
