@@ -18,5 +18,7 @@ As I said this project was made on Android Studio. If you would like to open it 
 - Attach pictures to each task
 
 # Screenshots
-| ![Easy-Reminders_add-task](http://jeancharles.riquet.free.fr/images/EasyReminders-connection.png ) | ![Easy-Reminders_add-task](http://jeancharles.riquet.free.fr/images/EasyReminders-list-tasks.png) | 
-| ![Easy-Reminders_add-task](http://jeancharles.riquet.free.fr/images/EasyReminders-add-task.png) | ![Easy-Reminders_add-task](http://jeancharles.riquet.free.fr/images/EasyReminders-modify-task.png) | 
+![test](http://jeancharles.riquet.free.fr/images/EasyReminders-connection2.png)
+![test](http://jeancharles.riquet.free.fr/images/EasyReminders-list-tasks2.png)
+![test](http://jeancharles.riquet.free.fr/images/EasyReminders-add-task2.png)
+![test](http://jeancharles.riquet.free.fr/images/EasyReminders-modify-task2.png)
