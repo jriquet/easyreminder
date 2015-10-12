@@ -8,10 +8,6 @@ As I said this project was made on Android Studio. If you would like to open it 
 - "Check out from Version Control" then "GitHub"
 - Then paste the "HTTPS clone URL" which is on the right of the page and click "Clone"
 
-# Screenshots
-| ![Easy-Reminders_add-task](http://jeancharles.riquet.free.fr/images/EasyReminders-connection.png ) | ![Easy-Reminders_add-task](http://jeancharles.riquet.free.fr/images/EasyReminders-list-tasks.png) | 
-| ![Easy-Reminders_add-task](http://jeancharles.riquet.free.fr/images/EasyReminders-add-task.png) | ![Easy-Reminders_add-task](http://jeancharles.riquet.free.fr/images/EasyReminders-modify-task.png) | 
-
 # Functionalities available
 - Creation/Connection/Disconnection of a user
 - Creation/Modification of tasks assigned to the user connected
@@ -20,3 +16,7 @@ As I said this project was made on Android Studio. If you would like to open it 
 # Todo
 - Creation of reminders depending of the date limite of the task
 - Attach pictures to each task
+
+# Screenshots
+| ![Easy-Reminders_add-task](http://jeancharles.riquet.free.fr/images/EasyReminders-connection.png ) | ![Easy-Reminders_add-task](http://jeancharles.riquet.free.fr/images/EasyReminders-list-tasks.png) | 
+| ![Easy-Reminders_add-task](http://jeancharles.riquet.free.fr/images/EasyReminders-add-task.png) | ![Easy-Reminders_add-task](http://jeancharles.riquet.free.fr/images/EasyReminders-modify-task.png) | 
