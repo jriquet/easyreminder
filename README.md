@@ -9,10 +9,6 @@ As I said this project was made on Android Studio. If you would like to open it 
 - Then paste the "HTTPS clone URL" which is on the right of the page and click "Clone"
 
 # Screenshots
-![Connection](http://jeancharles.riquet.free.fr/images/Easy-Reminders_connection.png "Connection")
-![List of the tasks](http://jeancharles.riquet.free.fr/images/Easy-Reminders_list-tasks.png "List of the tasks")
-![Add a task](http://jeancharles.riquet.free.fr/images/Easy-Reminders_add-task.png "Add a task")
-![Modify a task](http://jeancharles.riquet.free.fr/images/Easy-Reminders_modify-task.png "Modify a task")
 
 
 # Functionalities available
