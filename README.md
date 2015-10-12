@@ -9,8 +9,8 @@ As I said this project was made on Android Studio. If you would like to open it 
 - Then paste the "HTTPS clone URL" which is on the right of the page and click "Clone"
 
 # Screenshots
-| ![Easy-Reminders_add-task](http://jeancharles.riquet.free.fr/images/Easy-Reminders_connection2.png ) | ![Easy-Reminders_add-task](http://jeancharles.riquet.free.fr/images/Easy-Reminders_list-tasks2.png) | 
-| ![Easy-Reminders_add-task](http://jeancharles.riquet.free.fr/images/Easy-Reminders_add-task2.png) | ![Easy-Reminders_add-task](http://jeancharles.riquet.free.fr/images/Easy-Reminders_modify-task2.png) | 
+| ![Easy-Reminders_add-task](http://jeancharles.riquet.free.fr/images/EasyReminders-connection.png ) | ![Easy-Reminders_add-task](http://jeancharles.riquet.free.fr/images/EasyReminders-list-tasks.png) | 
+| ![Easy-Reminders_add-task](http://jeancharles.riquet.free.fr/images/EasyReminders-add-task.png) | ![Easy-Reminders_add-task](http://jeancharles.riquet.free.fr/images/EasyReminders-modify-task.png) | 
 
 # Functionalities available
 - Creation/Connection/Disconnection of a user
